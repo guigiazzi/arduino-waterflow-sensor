@@ -11,8 +11,8 @@ int i=0; //Variável para contagem
 char auth[] = "24d6fecc78b74ce39ed55c8a09f0823f";
 char ssid[] = "SEGJC";
 char pass[] = "42645283";
-String user = "Guilherme Giazzi";
-String deviceId = "18-FE-34-68-F1-A9";
+String username = "guigiazzi";
+String deviceId = "18-FE-34-68-F1-A9"; 
 String description = "Pia da cozinha";
 
 #include <SoftwareSerial.h>
@@ -65,7 +65,7 @@ void myTimerEvent()
   //sensorData = analogRead(A0);
   Serial.println(media);
   Blynk.virtualWrite(V5, media);
-  Blynk.virtualWrite(V6, user);
+  Blynk.virtualWrite(V6, username);
   Blynk.virtualWrite(V7, deviceId);
   Blynk.virtualWrite(V8, description);
   media = 0; //Zera a variável media para uma nova contagem
