@@ -7,6 +7,8 @@ int i=0; //Variável para contagem
 
 #include <ESP8266_Lib.h>
 #include <BlynkSimpleShieldEsp8266.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 char auth[] = "24d6fecc78b74ce39ed55c8a09f0823f";
 char ssid[] = "SEGJC";
@@ -52,8 +54,6 @@ void loop()
   if(i==10) //!!! o limite do blynk eh de 23 segundos, depois disso, pede a conexao !!!
   {
     media = media/10; //Tira a media dividindo por 60
-    /*media = 0; //Zera a variável media para uma nova contagem
-    i=0; //Zera a variável i para uma nova contagem*/
     Blynk.run();
     timer.run(); // running timer every minute
   }
@@ -62,12 +62,14 @@ void loop()
 
 void myTimerEvent()
 {
-  //sensorData = analogRead(A0);
+  long millisSinceConnected = millis();
+  Serial.println(millisSinceConnected);
   Serial.println(media);
   Blynk.virtualWrite(V5, media);
   Blynk.virtualWrite(V6, username);
   Blynk.virtualWrite(V7, deviceId);
   Blynk.virtualWrite(V8, description);
+  Blynk.virtualWrite(V9, millisSinceConnected);
   media = 0; //Zera a variável media para uma nova contagem
   i=0; //Zera a variável i para uma nova contagem
 }
